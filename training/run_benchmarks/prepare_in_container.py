@@ -67,38 +67,39 @@ def install_extensions(vendor, model, framework):
         print("extensioin code ", source_path, " doesn't exist. Do nothing.")
         return 0
 
-    sandbox_dir = os.path.join(vend_path, 'sandbox', "extension")
+    # sandbox_dir = os.path.join(vend_path, 'sandbox', "extension")
+    sandbox_dir = os.path.join(source_path, 'sandbox', "extension")
     if os.path.exists(sandbox_dir):
         shutil.rmtree(sandbox_dir)
 
     cmd = "source " + env_file + "; export EXTENSION_SOURCE_DIR=" \
           + source_path + " ;" + " mkdir -p " + sandbox_dir + "; cd " \
           + sandbox_dir + "; " + sys.executable + " " + vend_model_path \
-          + "/setup.py install; " + " rm -rf " + sandbox_dir
+          + "/csrc/setup.py install; " + " rm -rf " + sandbox_dir
     print(cmd)
-    return run_cmd.run_cmd_wait(cmd, 1200)
+    return run_cmd.run_cmd_wait(cmd, 2400)
 
-def install_sdks(vendor, model, framework):
-    """{framework}_install.sh"""
-    # 需要先挂载好目录，再从指定路径去搜索sdk和厂商安装包
-    vend_path = os.path.abspath(os.path.join(CURR_PATH, "../" + vendor))
-    vend_model_path = os.path.join(vend_path, "docker_image/" + vendor)
-    framework_install_file = os.path.join(vend_model_path, "/" + vendor + "_install.sh") 
-    if not os.path.isfile(framework_install_file):
-        print("sdks install file ", framework_install_file, " doesn't exist. Do nothing.")
-        return 0
+# def install_sdks(vendor, model, framework):
+#     """{framework}_install.sh"""
+#     # 需要先挂载好目录，再从指定路径去搜索sdk和厂商安装包
+#     vend_path = os.path.abspath(os.path.join(CURR_PATH, "../" + vendor))
+#     vend_model_path = os.path.join(vend_path, "docker_image/" + vendor)
+#     framework_install_file = os.path.join(vend_model_path, "/" + vendor + "_install.sh") 
+#     if not os.path.isfile(framework_install_file):
+#         print("sdks install file ", framework_install_file, " doesn't exist. Do nothing.")
+#         return 0
     
-    cmd = "source image.conf; bash " + framework_install_file
-    print(cmd)
-    return run_cmd.run_cmd_wait(cmd, 1200) 
+#     cmd = "source image.conf; bash " + framework_install_file
+#     print(cmd)
+#     return run_cmd.run_cmd_wait(cmd, 1200) 
 
 def main():
     '''Main process of preparing environment.'''
     args = parse_args()
-    if args.vendor == "iluvatar":
-       ret = install_sdks(args.vendor, args.model, args.framework)
-       if ret != 0:
-           sys.exit(ret) 
+    # if args.vendor == "iluvatar":
+    #    ret = install_sdks(args.vendor, args.model, args.framework)
+    #    if ret != 0:
+    #        sys.exit(ret) 
         
     ret = install_requriements(args.vendor, args.model, args.framework,
                                args.pipsource)

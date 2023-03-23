@@ -30,7 +30,8 @@ RUN apt-get install -y \
      iputils-ping \
      pbzip2 \
      pv \
-     numactl
+     numactl \
+     ninja-build
 
 # Configure anaconda
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-py38_4.10.3-Linux-x86_64.sh && \

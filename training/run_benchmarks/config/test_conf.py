@@ -7,7 +7,9 @@
 VENDOR = "iluvatar"
 
 # Accelerator options for docker. TODO FIXME support more accelerators.
-ACCE_CONTAINER_OPT = " --gpus all"
+# ACCE_CONTAINER_OPT = " --gpus all"
+ACCE_CONTAINER_OPT = ""
+
 # XXX_VISIBLE_DEVICE item name in env
 # possible value of ACCE_VISIBLE_DEVICE_ENV_NAME are:
 #   CUDA_VISIBLE_DEVICES for nvidia, iluvatar

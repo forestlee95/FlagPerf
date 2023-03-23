@@ -117,6 +117,8 @@ class ImageManager():
         start_args = " --rm --init --detach --net=host --uts=host " \
                      + "--ipc=host --security-opt=seccomp=unconfined " \
                      + "--privileged=true --ulimit=stack=67108864 " \
+                     + "-v /lib/modules/:/lib/modules " \
+                     + "--cap-add=ALL " \
                      + "--ulimit=memlock=-1 -v " + image_dir + ":" \
                      + image_dir_in_container
         cont_mgr = ContainerManager(tmp_container_name)
@@ -146,7 +148,7 @@ class ImageManager():
                      + tmp_container_name + " " + self.repository + ":" \
                      + self.tag
 
-        ret, outs = rcw(commit_cmd, 30)
+        ret, outs = rcw(commit_cmd, 300)
         if ret != 0:
             print("Commit docker image failed.")
             print("Error: " + outs[0])

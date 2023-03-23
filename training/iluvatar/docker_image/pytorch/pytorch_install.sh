@@ -1,8 +1,7 @@
 #!/bin/bash
 
-SDK_DIR="/installer/sdk_installers"
-PKG_DIR="/installer/packages"
-
+SDK_DIR="/workspace/docker_image/sdk_installers"
+PKG_DIR="/workspace/docker_image/packages"
 
 search_cuda_results=`find ${SDK_DIR} -name "*cuda*10.2*.run"`
 for installer in $search_cuda_results; do
