@@ -173,15 +173,15 @@ def main():
     if operation == "exist":
         ret = image_manager.exist()
         if ret == 0:
-            print("Doker image exists.")
+            print("Docker image exists.")
         else:
-            print("Doker image doesn't exist.")
+            print("Docker image doesn't exist.")
     elif operation == "remove":
         ret = image_manager.remove()
         if ret == 0:
-            print("Remove doker image successfully.")
+            print("Remove docker image successfully.")
         else:
-            print("Remove doker image failed.")
+            print("Remove docker image failed.")
     elif operation == "build":
         if image_manager.exist() == 0:
             ret = 0
