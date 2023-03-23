@@ -78,10 +78,28 @@ def install_extensions(vendor, model, framework):
     print(cmd)
     return run_cmd.run_cmd_wait(cmd, 1200)
 
+def install_sdks(vendor, model, framework):
+    """{framework}_install.sh"""
+    # 需要先挂载好目录，再从指定路径去搜索sdk和厂商安装包
+    vend_path = os.path.abspath(os.path.join(CURR_PATH, "../" + vendor))
+    vend_model_path = os.path.join(vend_path, "docker_image/" + vendor)
+    framework_install_file = os.path.join(vend_model_path, "/" + vendor + "_install.sh") 
+    if not os.path.isfile(framework_install_file):
+        print("sdks install file ", framework_install_file, " doesn't exist. Do nothing.")
+        return 0
+    
+    cmd = "source image.conf; bash " + framework_install_file
+    print(cmd)
+    return run_cmd.run_cmd_wait(cmd, 1200) 
 
 def main():
     '''Main process of preparing environment.'''
     args = parse_args()
+    if args.vendor == "iluvatar":
+       ret = install_sdks(args.vendor, args.model, args.framework)
+       if ret != 0:
+           sys.exit(ret) 
+        
     ret = install_requriements(args.vendor, args.model, args.framework,
                                args.pipsource)
     if ret != 0:

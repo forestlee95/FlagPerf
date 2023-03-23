@@ -3,7 +3,9 @@
 
 # Set accelerator's vendor name, e.g. iluvatar, cambricon and kunlun.
 # We will run benchmarks in training/<vendor>
-VENDOR = "nvidia"
+# VENDOR = "nvidia"
+VENDOR = "iluvatar"
+
 # Accelerator options for docker. TODO FIXME support more accelerators.
 ACCE_CONTAINER_OPT = " --gpus all"
 # XXX_VISIBLE_DEVICE item name in env
@@ -14,11 +16,13 @@ ACCE_CONTAINER_OPT = " --gpus all"
 ACCE_VISIBLE_DEVICE_ENV_NAME = "CUDA_VISIBLE_DEVICES"
 
 # Set pip source, which will be used in preparing envs in container
-PIP_SOURCE = "https://mirror.baidu.com/pypi/simple"
+# PIP_SOURCE = "https://mirror.baidu.com/pypi/simple"
+PIP_SOURCE = "https://pypi.tuna.tsinghua.edu.cn/simple"
 
 # The path that flagperf deploy in the cluster.
 # If not set, it will be os.path.dirname(run.py)/../../training/
-FLAGPERF_PATH_HOST = "/home/flagperf/training"
+# FLAGPERF_PATH_HOST = "/home/flagperf/training"
+FLAGPERF_PATH_HOST = "/data/sen.li/workspace/FlagPerf/training"
 
 # Set the mapping directory of flagperf in container.
 FLAGPERF_PATH_CONTAINER = "/workspace/flagperf/training"
@@ -38,10 +42,11 @@ CLEAR_CACHES = True
 
 # Set the case list you want to run here.
 # CASES is a list of case names.
-CASES = [
-    'BERT_PADDLE_DEMO_A100_1X8', 'GLM_TORCH_DEMO_A100_1X8',
-    'CPM_TORCH_DEMO_A100_1X8'
-]
+# CASES = [
+#     'BERT_PADDLE_DEMO_A100_1X8', 'GLM_TORCH_DEMO_A100_1X8',
+#     'CPM_TORCH_DEMO_A100_1X8'
+# ]
+CASES = ['CPM_TORCH_DEMO_A100_1X1']
 
 # Config each case in a dictionary like this.
 BERT_PADDLE_DEMO_A100_1X8 = {  # benchmark case name, one in CASES
@@ -81,11 +86,12 @@ GLM_TORCH_DEMO_A100_2X8 = {
 CPM_TORCH_DEMO_A100_1X1 = {
     "model": "cpm",
     "framework": "pytorch",
-    "config": "config_A100x1x1",
+    "config": "config_BI-V100x1x1",
     "repeat": 1,
     "nnodes": 1,
     "nproc": 1,
-    "data_dir_host": "/home/datasets_ckpt/cpm/train/",
+    # "data_dir_host": "/home/datasets_ckpt/cpm/train/",
+    "data_dir_host": "/data/sen.li/workspace/datasets/cpm/",
     "data_dir_container": "/mnt/data/cpm/train/",
 }
 

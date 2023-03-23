@@ -163,7 +163,7 @@ def prepare_running_env(dp_path, container_name, case_config):
                   + " utils/container_manager.py -o runcmdin -c " \
                   + container_name + " -t 1800 -r \"python3 " \
                   + tc.FLAGPERF_PATH_CONTAINER + "/" \
-                  + "/run_benchmarks/prepare_in_container.py --framework " \
+                  + "run_benchmarks/prepare_in_container.py --framework " \
                   + framework + " --model " + model + " --vendor " \
                   + tc.VENDOR + " --pipsource " + tc.PIP_SOURCE + "\""
     timeout = 1800
