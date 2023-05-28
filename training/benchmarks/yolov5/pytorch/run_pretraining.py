@@ -18,8 +18,16 @@ from driver import Event, dist_pytorch
 from driver.helper import InitHelper
 
 
-from train import trainer
+# from train import trainer
+# from train.training_state import TrainingState
+
+from train import trainer_adapter
+from train.evaluator import Evaluator
+from train.trainer import Trainer
 from train.training_state import TrainingState
+
+from dataloaders.dataloader import build_train_dataloader, build_eval_dataloader
+
 
 logger = None
 
@@ -42,9 +50,27 @@ def main() -> Tuple[Any, Any]:
 
     init_helper.set_seed(config.seed, config.vendor)
 
+    # TODO
+    # 构建dataset, dataloader 【train && validate】
+    train_dataloader, train_dataset = build_train_dataloader()
+    eval_dataloader, eval_dataset = build_eval_dataloader()
+
+    #TODO
+    # 根据 eval_dataloader 构建evaluator
+    evaluator = Evaluator(config, eval_dataloader)
 
     # 创建TrainingState对象
     training_state = TrainingState()
+    
+    # 构建 trainer：依赖 evaluator、TrainingState对象
+    # TODO
+    trainer = Trainer(driver=model_driver,
+                      adapter=trainer_adapter,
+                      evaluator=evaluator,
+                      training_state=training_state,
+                      device=config.device,
+                      config=config)
+    training_state._trainer = trainer
 
     if not config.do_train:
         return config, training_state
@@ -59,8 +85,9 @@ def main() -> Tuple[Any, Any]:
     model_driver.event(Event.TRAIN_START)
     raw_train_start_time = logger.previous_log_time # 训练起始时间，单位为ms
 
-    # 训练过程
     
+    # 训练过程
+    # TODO
     trainer.run(config, training_state)
     
     # TRAIN_END事件
