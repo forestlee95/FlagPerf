@@ -24,4 +24,4 @@ DATASET_DIR=[PATH]  bash training/benchmarks/wav2vec2/pytorch/scripts/generate_f
 | ---------- | ------- | 
 | Nvidia GPU | ✅      | 
 | 昆仑芯 XPU | N/A      |  
-| 天数智芯   | N/A      |
+| 天数智芯   | ✅      |
