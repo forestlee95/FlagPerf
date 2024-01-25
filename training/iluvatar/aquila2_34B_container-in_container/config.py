@@ -1,7 +1,7 @@
 # =========================================================
 # network
 # =========================================================
-SSH_PORT = "60022"
+SSH_PORT = "10020"
 
 net_cmd = "export CUDA_DEVICE_MAX_CONNECTIONS=1;export NCCL_SOCKET_IFNAME=enp;export NCCL_IB_DISABLE=0;export NCCL_IB_CUDA_SUPPORT=1;export NCCL_IB_GID_INDEX=0;export NCCL_IB_HCA=mlx5_2,mlx5_5;export NCCL_DEBUG=debug"
 
